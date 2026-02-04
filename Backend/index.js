@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 //bcrypt salt rounds
-const saltRaounds = 10;
+const saltRounds = 10;
 //GET all users
 app.get('/api/users', async (req, res) => {
   try {
@@ -25,12 +25,12 @@ app.get('/api/users', async (req, res) => {
 
 //ADD user
 app.post("/api/users", async (req, res) => {
-  const {username, email, password} = req.body;
+  const { username, email, password } = req.body;
   
   console.log(req.body);
-  const passwordHash = await bcrypt.hash(password, saltRaounds); // In a real application, hash the password before storing it
+  const passwordHash = await bcrypt.hash(password, saltRounds); // Hash le password avant d'enregistre
   try {
-    const result = await pool.query("INSERT INTO users (username, email, password) VALUES($1, $2, $3) RETURNING id, username, email", [username,email, passwordHash]);
+    const result = await pool.query("INSERT INTO users (username, email, password) VALUES($1, $2, $3) RETURNING id, username, email", [username, email, passwordHash]);
     res.status(200).json(result.rows[0]);
   } catch (error) {
     console.error("User not created", error.message);
@@ -39,8 +39,8 @@ app.post("/api/users", async (req, res) => {
 });
 
 // UPDATE user
-app.put("/api/users/:userId", async (req, res) => {
-  const { userId } = req.params;
+app.put("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
   
   if (!req.body) {
     return res.status(400).json({ message: "Request body is missing" });
@@ -52,15 +52,15 @@ app.put("/api/users/:userId", async (req, res) => {
     return res.status(400).json({ message: "username and email are required" });
   }
 try {
-  const result = await pool.query("UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING id, username, email", [username,  email, userId]);
+  const result = await pool.query("UPDATE users SET username = $1, email = $2 WHERE id = $3 RETURNING id, username, email", [username,  email, id]);
   if (result.rowCount === 0) {
-    return res.status(404).json({ message: `User not found with id ${userId}` });
+    return res.status(404).json({ message: `User not found with id ${id}` });
   }
   console.log(result.rowCount);
   res.status(200).json(result.rows[0]);
 } catch (error) {
   console.error("Update user error: ", error.message);
-  res.status(500).json({message : `Interval server error while updating user By ${userId}`})
+  res.status(500).json({message : `Internal server error while updating user ${id}`})
 }
 });
 

@@ -1,20 +1,22 @@
 # Node modules
 **/node_modules/
 
-# Env files
-**/.env
-.env
-.env.*
+# Dépendances
+node_modules/
+Frontend/todo-list/node_modules/
+Backend/node_modules/
 
-# Build / cache
+# Environnement (Sécurité !)
+.env
+.env.local
+
+# Build
 dist/
 build/
-.cache/
 
 # Logs
 npm-debug.log*
 yarn-error.log*
 
-# OS
+# Divers
 .DS_Store
-Thumbs.db
