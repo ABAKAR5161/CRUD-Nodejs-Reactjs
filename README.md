@@ -1,6 +1,11 @@
 # CRUD-Nodejs-Reactjs
 
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Nodejs](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)
+![Postgres](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
+
 Une application web full-stack de gestion des utilisateurs construite avec **React.js** en frontend et **Node.js/Express** en backend.
+
 
 ## 🎯 Objectif du projet
 
@@ -12,14 +17,25 @@ Cette application permet de gérer une liste d'utilisateurs avec les opérations
 
 ## 📸 Aperçu de l'application
 
-### Dashboard Principal
-![Interface principale](images/dashboard.png)
+### 1️⃣ Dashboard Principal
+![Dashboard principal affichant la liste des utilisateurs](images/dashboard.png)  
+Le **dashboard** montre un aperçu complet des utilisateurs enregistrés avec leur nom et email.  
+On y voit également les boutons pour **Edit** et **supprimer** chaque utilisateur.
 
-### Formulaire d'ajout d'utilisateur
-![Formulaire](images/form.png)
+---
 
-### Tableau des utilisateurs
-![Tableau](images/users-table.png)
+### 2️⃣ Formulaire d'ajout d'utilisateur
+![Formulaire d'ajout d'utilisateur avec champs nom et email](images/form.png)  
+Ce formulaire permet d’ajouter un nouvel utilisateur.  
+Les champs sont **validés côté client** avant l’envoi et le bouton “Ajouter” déclenche la requête `POST /api/users`.
+
+---
+
+### 3️⃣ Tableau des utilisateurs
+![Tableau affichant la liste des utilisateurs avec actions modifier et supprimer](images/users-table.png)  
+Le **tableau** liste tous les utilisateurs récupérés via l’API.  
+Chaque ligne inclut les informations de l’utilisateur et les **actions CRUD** disponibles (modifier ou supprimer).
+
 
 ---
 
@@ -229,7 +245,7 @@ Cette application permet de gérer une liste d'utilisateurs avec les opérations
 ├──────────────────────────────────────────────────────────────────┤
 │ Description  : Récupère la liste de tous les utilisateurs       │
 │ Méthode      : GET                                              │
-│ Réponse      : [{ id, nom, email, ...}, ...]                   │
+│ Réponse      : [{ id, username, email, ...}, ...]                   │
 │ Status       : 200 OK                                           │
 │ Erreur       : 500 Server Error                                 │
 └──────────────────────────────────────────────────────────────────┘
@@ -239,8 +255,8 @@ Cette application permet de gérer une liste d'utilisateurs avec les opérations
 ├──────────────────────────────────────────────────────────────────┤
 │ Description  : Crée un nouvel utilisateur                       │
 │ Méthode      : POST                                             │
-│ Payload      : { nom, email, telephone, ... }                  │
-│ Réponse      : { id, nom, email, ... }                         │
+│ Payload      : { username, email, ... }                  │
+│ Réponse      : { id, username, email, ... }                         │
 │ Status       : 201 Created / 400 Bad Request                   │
 │ Erreur       : 500 Server Error                                 │
 └──────────────────────────────────────────────────────────────────┘
@@ -251,8 +267,8 @@ Cette application permet de gérer une liste d'utilisateurs avec les opérations
 │ Description  : Met à jour un utilisateur                        │
 │ Méthode      : PUT                                              │
 │ Paramètre    : :id (ID de l'utilisateur)                       │
-│ Payload      : { nom, email, telephone, ... }                  │
-│ Réponse      : { id, nom, email, ... }                         │
+│ Payload      : { username, email, ... }                  │
+│ Réponse      : { id, username, email, ... }                         │
 │ Status       : 200 OK / 404 Not Found / 400 Bad Request        │
 │ Erreur       : 500 Server Error                                 │
 └──────────────────────────────────────────────────────────────────┘
@@ -278,14 +294,8 @@ Cette application permet de gérer une liste d'utilisateurs avec les opérations
 
 {
   "id": 1,                          // Identifiant unique (AUTO)
-  "nom": "Jean Dupont",             // Nom complet
+  "username": "Jean Dupont",             // Nom complet
   "email": "jean@example.com",      // Adresse email
-  "telephone": "+33 6 12 34 56 78", // Numéro de téléphone
-  "adresse": "123 Rue de Paris",    // Adresse
-  "ville": "Paris",                 // Ville
-  "codePostal": "75001",            // Code postal
-  "dateCreation": "2024-01-15",     // Date de création (AUTO)
-  "dateModification": "2024-02-04"  // Date dernière modif (AUTO)
 }
 ```
 
@@ -395,11 +405,11 @@ npm install
 # Créer un fichier .env avec vos variables
 # Exemple:
 # PORT=5000
-# DB_HOST=localhost
-# DB_PORT=5432
-# DB_USER=root
-# DB_PASSWORD=password
-# DB_NAME=crud_app
+# PG_HOST=localhost
+# PG_PORT=5432
+# PG_USER=postgres
+# PG_PASSWORD=password
+# PG_DATABASE=crud_app
 
 # Démarrer en développement (nodemon)
 npm run dev
@@ -496,20 +506,7 @@ Ce projet démontre :
 - [ ] Tests unitaires (Jest, React Testing Library)
 - [ ] Docker pour déploiement
 
----
 
-## 📸 Galerie de screenshots
-
-### Écran de chargement
-![Loading](images/dashboard.png)
-
-### Formulaire en action
-![Form](images/form.png)
-
-### Liste complète d'utilisateurs
-![Table](images/users-table.png)
-
----
 
 ## 🐛 Troubleshooting
 
